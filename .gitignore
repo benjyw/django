@@ -16,3 +16,8 @@ tests/coverage_html/
 tests/.coverage
 build/
 tests/report/
+
+# Pants
+.pants.d/
+.pids/
+logs/
