@@ -17,7 +17,8 @@ tests/.coverage
 build/
 tests/report/
 
-# Pants
-.pants.d/
-.pids/
-logs/
+# Pants workspace files
+/.pants.d/
+/dist/
+/.pids
+/.pants.workdir.file_lock*
