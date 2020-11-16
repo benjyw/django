@@ -1,11 +1,12 @@
 [GLOBAL]
 pants_version = "2.0.0"
-backend_packages = ['pants.backend.python']
+backend_packages = ["pants.backend.python"]
+build_file_prelude_globs = ["pants_macros.py"]
 
 [python-infer]
 inits = true
-conftest = true
+conftests = true
 string_imports = true
 
 [test]
-extra_env_vars = ['DJANGO_SETTINGS_MODULE=tests.test_sqlite']
+extra_env_vars = ["DJANGO_SETTINGS_MODULE=tests.test_sqlite"]

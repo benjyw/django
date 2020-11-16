@@ -1,4 +1,4 @@
-python_tests(
-    sources = ['**/*.py'],
-    dependencies = ['tests/test_sqlite.py', 'django/db/backends/sqlite3/base.py:../../../django']
+python_library(
+  name = 'test_helpers',
+  sources = ['conftest.py', 'test_sqlite.py']
 )
