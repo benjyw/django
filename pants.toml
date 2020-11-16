@@ -4,4 +4,8 @@ backend_packages = ['pants.backend.python']
 
 [python-infer]
 inits = true
+conftest = true
 string_imports = true
+
+[test]
+extra_env_vars = ['DJANGO_SETTINGS_MODULE=tests.test_sqlite']
