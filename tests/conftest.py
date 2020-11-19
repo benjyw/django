@@ -22,55 +22,60 @@ def pytest_collect_file(path, parent):
     return None  # Delegate to the standard collector.
 
 
-settings.configure(
-    SECRET_KEY="django_tests_secret_key",
-    TIME_ZONE="UTC",
-    USE_TZ=True,
-    PROFILE=False,
-    LANGUAGE_CODE='en',
-    # Use a fast hasher to speed up tests.
-    PASSWORD_HASHERS = [
-        'django.contrib.auth.hashers.MD5PasswordHasher',
-    ],
-    INSTALLED_APPS=[
-        'django.contrib.contenttypes',
-        'django.contrib.auth',
-        'django.contrib.sites',
-        'django.contrib.sessions',
-        'django.contrib.messages',
-        'django.contrib.admin.apps.SimpleAdminConfig',
-        'django.contrib.staticfiles',
-    ],
-    DATABASES={
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'db.sqlite3',
-        },
-        'other': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'db.sqlite3',
-        }
-    },
-    MIGRATION_MODULES={
-        # This lets us skip creating migrations for the test models as many of
-        # them depend on one of the following contrib applications.
-        'auth': None,
-        'contenttypes': None,
-        'sessions': None,
-    },
-    TEMPLATES = [{
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['tests/templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        }
-    }]
-)
+def pytest_configure():
+    configure_settings()
 
-django.setup()
+
+def configure_settings():
+    settings.configure(
+        SECRET_KEY="django_tests_secret_key",
+        TIME_ZONE="UTC",
+        USE_TZ=True,
+        PROFILE=False,
+        LANGUAGE_CODE='en',
+        # Use a fast hasher to speed up tests.
+        PASSWORD_HASHERS = [
+            'django.contrib.auth.hashers.MD5PasswordHasher',
+        ],
+        INSTALLED_APPS=[
+            'django.contrib.contenttypes',
+            'django.contrib.auth',
+            'django.contrib.sites',
+            'django.contrib.sessions',
+            'django.contrib.messages',
+            'django.contrib.admin.apps.SimpleAdminConfig',
+            'django.contrib.staticfiles',
+        ],
+        DATABASES={
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': 'db.sqlite3',
+            },
+            'other': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': 'db.sqlite3',
+            }
+        },
+        MIGRATION_MODULES={
+            # This lets us skip creating migrations for the test models as many of
+            # them depend on one of the following contrib applications.
+            'auth': None,
+            'contenttypes': None,
+            'sessions': None,
+        },
+        TEMPLATES = [{
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': ['tests/templates'],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+            }
+        }]
+    )
+
+    #django.setup()

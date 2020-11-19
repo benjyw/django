@@ -7,6 +7,3 @@ build_file_prelude_globs = ["pants_macros.py"]
 inits = true
 conftests = true
 string_imports = true
-
-[test]
-extra_env_vars = ["DJANGO_SETTINGS_MODULE=tests.test_sqlite"]
