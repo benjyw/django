@@ -7,6 +7,7 @@ python_library(
       ':templates',
       'django/core/management/commands/migrate.py:../../../django',
       'django/core/management/commands/createcachetable.py:../../../django',
+      'django/views/templates',
   ]
 )
 
