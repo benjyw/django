@@ -1,6 +1,7 @@
 django_tests(
     dependencies = [
         'django/contrib/admin/templates',
-        'django/forms/templates'
+        'django/contrib/admin/templatetags/log.py:../../../',
+        'django/forms/templates',
     ]
 )

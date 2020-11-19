@@ -1,5 +1,8 @@
+import atexit
 import itertools
 import os
+import shutil
+import tempfile
 from pathlib import PurePath
 
 import django
@@ -27,12 +30,22 @@ def pytest_configure():
 
 
 def configure_settings():
+    # Create a specific subdirectory for the duration of the test suite.
+    tmpdir = tempfile.mkdtemp(prefix='django_')
+    # Set the TMPDIR environment variable in addition to tempfile.tempdir
+    # so that children processes inherit it.
+    tempfile.tempdir = os.environ['TMPDIR'] = tmpdir
+
+    atexit.register(shutil.rmtree, tmpdir)
+
     settings.configure(
         SECRET_KEY="django_tests_secret_key",
         TIME_ZONE="UTC",
         USE_TZ=True,
         PROFILE=False,
         LANGUAGE_CODE='en',
+        STATIC_URL = '/static/',
+        STATIC_ROOT = os.path.join(tmpdir, 'static'),
         # Use a fast hasher to speed up tests.
         PASSWORD_HASHERS = [
             'django.contrib.auth.hashers.MD5PasswordHasher',
