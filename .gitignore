@@ -22,3 +22,7 @@ tests/report/
 /dist/
 /.pids
 /.pants.workdir.file_lock*
+
+*.iml
+.idea/
+tests/.venv

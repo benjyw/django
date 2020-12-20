@@ -6,8 +6,13 @@ import tempfile
 from pathlib import PurePath
 
 import django
+import pytest
 from django.apps import apps
 from django.conf import settings
+from django.test.utils import setup_databases
+
+
+_execution_slot = os.environ["PANTS_EXECUTION_SLOT"]
 
 
 def add_app(path):
@@ -15,7 +20,6 @@ def add_app(path):
     suffix_parts = list(itertools.dropwhile(lambda x: x != 'tests', path_parts))
     package = '.'.join(suffix_parts[1:-1])  # Omit the leading 'tests' and the filename.
     if package not in settings.INSTALLED_APPS:
-        #print(f"PPPPPPPPPPP {package}")
         settings.INSTALLED_APPS.append(package)
     apps.set_installed_apps(settings.INSTALLED_APPS)
 
@@ -27,6 +31,11 @@ def pytest_collect_file(path, parent):
 
 def pytest_configure():
     configure_settings()
+
+
+@pytest.fixture(scope="session")
+def django_db_use_migrations(request):
+    return True
 
 
 def configure_settings():
@@ -69,11 +78,11 @@ def configure_settings():
         DATABASES={
             'default': {
                 'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': 'db.sqlite3',
+                'NAME': f'db.sqlite3.{_execution_slot}',
             },
             'other': {
                 'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': 'db.sqlite3',
+                'NAME': f'db.sqlite3.{_execution_slot}',
             }
         },
         MIGRATION_MODULES={
@@ -99,3 +108,4 @@ def configure_settings():
     )
 
     #django.setup()
+    #setup_databases(verbosity=1, interactive=False)

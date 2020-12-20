@@ -7,3 +7,7 @@ build_file_prelude_globs = ["pants_macros.py"]
 inits = true
 conftests = true
 string_imports = true
+
+
+[pytest]
+execution_slot_var = "PANTS_EXECUTION_SLOT"
