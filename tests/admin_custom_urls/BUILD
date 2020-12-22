@@ -4,6 +4,7 @@ django_tests(
         'django/contrib/admin/templatetags/admin_modify.py:../../../',
         'django/forms/templates',
         'django/templatetags/l10n.py:../',
+        'django/contrib/admin/migrations',
         'django/contrib/sites/migrations',
     ]
 )

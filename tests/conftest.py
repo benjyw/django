@@ -60,9 +60,9 @@ def configure_settings():
             'django.contrib.auth.hashers.MD5PasswordHasher',
         ],
         INSTALLED_APPS=[
-            'django.contrib.contenttypes',
+            'django.contrib.contenttypes.apps.ContentTypesConfig',
             'django.contrib.auth',
-            'django.contrib.sites',
+            'django.contrib.sites.apps.SitesConfig',
             'django.contrib.sessions',
             'django.contrib.messages',
             'django.contrib.admin.apps.SimpleAdminConfig',
